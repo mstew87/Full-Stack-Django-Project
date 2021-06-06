@@ -1,13 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User
-# Create your views here.
-def index(request):
-    return render(request, 'index.html')
 
-def signup(request):
-    return render(request, 'signup.html')
-
+# Restriation and authentication
 def register(request):
     if request.method == "GET":
         return redirect('/signup')
@@ -37,6 +32,13 @@ def logout(request):
     request.session.clear()
     return redirect('/')
 
+# Renders
+def index(request):
+    return render(request, 'index.html')
+
+def signup(request):
+    return render(request, 'signup.html')
+
 def success(request):
     if 'user_id' not in request.session:
         return redirect('/')
@@ -45,3 +47,12 @@ def success(request):
         'user': user
     }
     return render(request, 'success.html', context)
+
+def reviews(request):
+    return render(request, 'reviews.html')
+
+def news(request):
+    return render(request, 'news.html')
+
+def forum(request):
+    return render(request, 'forum.html')
