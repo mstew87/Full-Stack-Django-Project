@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   {% include "partial/head.html" %}
-    <title>Gaming News</title>
     <title>Gaming News | Logged In</title>
   </head>
   <body>
-    {% include "partial/nav.html" %}
+    {% include "partial/nav-logged-in.html" %}
     <h1>Welcome, {{ user.username }}!</h1>
     <ul class="messages">
       {% for message in messages %}
@@ -14,6 +13,5 @@
       </li>
       {% endfor %}
     </ul>
-    <a href="/logout">Log Out</a>
   </body>
 </html>
