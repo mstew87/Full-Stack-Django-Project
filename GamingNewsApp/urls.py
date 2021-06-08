@@ -10,5 +10,9 @@ urlpatterns = [
     path('success', views.success),
     path('news', views.news),
     path('reviews', views.reviews),
-    path('forum', views.forum)
+    path('forum', views.forum),
+    path('process_message', views.post_mess),
+    path('like/<int:id>', views.delete_comment),
+    path('delete/<int:id>', views.delete_comment),    
+    path('edit/<int:id>', views.edit),
 ]
