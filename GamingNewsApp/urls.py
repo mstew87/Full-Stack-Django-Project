@@ -12,7 +12,7 @@ urlpatterns = [
     path('reviews', views.reviews),
     path('forum', views.forum),
     path('process_message', views.post_mess),
-    path('like/<int:id>', views.delete_comment),
+    path('like/<int:id>', views.add_like),
     path('delete/<int:id>', views.delete_comment),    
     path('edit/<int:id>', views.edit),
 ]

@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.conf import settings
 from .models import Comment, Forum_Post, User
+import requests
+# from GamingNews/.env/ import APIKEY
+# news_api_url = f"https://newsapi.org/v2/top-headlines?country=us&apiKey={APIKEY}"
 
 # -- Restriation and authentication -- #
 def register(request):
@@ -51,9 +55,42 @@ def success(request):
 def reviews(request):
     return render(request, 'reviews.html')
 
-def news(request):
-    return render(request, 'news.html')
+# def news(request):
+#     r = requests.get(news_api_url)
+#     json = r.json()
+#     context = {
+#         "results": json['results']
+#     }
+#     return render(request, 'news.html', context=context)
 
+def news(request):
+    page = request.GET.get('page', 1)
+    # search = request.GET.get('search', None)
+    url = f"https://newsapi.org/v2/top-headlines?sources=ign&apiKey={settings.APIKEY}"
+    # if search is None or search=="top":
+    #     # get the top news
+    #     url = "https://newsapi.org/v2/top-headlines?country={}&page={}&apiKey={}".format(
+    #         "us",1,settings.APIKEY
+    #     )
+    r = requests.get(url=url)
+    data = r.json()
+    data = data["articles"]
+    context = {
+        "success": True,
+        "data": [],
+        # "search": search
+    }
+    for i in data:
+        context["data"].append({
+            "title": i["title"],
+            "description":  "" if i["description"] is None else i["description"],
+            "url": i["url"],
+            "image": "" if i["urlToImage"] is None else i["urlToImage"],
+            "publishedat": i["publishedAt"]
+        })
+    return render(request, 'news.html', context=context)
+
+# -- Forum Views -- #
 def forum(request):
     if 'user_id' not in request.session:
         return redirect('/')
@@ -62,29 +99,28 @@ def forum(request):
         'user': user,
         'forum_posts': Forum_Post.objects.all()
     }
-    return render(request, 'forum.html')
+    return render(request, 'forum.html', context)
 
-# -- Forum Views -- #
 def post_mess(request):
-    Forum_Post.objects.create(message=request.POST['mess'], poster = User.objects.get(id=request.session['id']))
+    Forum_Post.objects.create(post=request.POST['mess'], poster = User.objects.get(id=request.session['user_id']))
     return redirect('/forum')
 
 def post_comment(request, id):
-    poster = User.objects.get(id=request.session['id'])
-    message = Forum_Post.objects.get(id=id)
-    Comment.objects.create(comment=request.POST['comment'], poster=poster, forum_post=message)
+    poster = User.objects.get(id=request.session['user_id'])
+    post = Forum_Post.objects.get(id=id)
+    Comment.objects.create(comment=request.POST['comment'], poster=poster, forum_post=post)
     return redirect('/forum')
 
 def add_like(request, id):
     liked_post = Forum_Post.objects.get(id=id)
-    user_liking = User.objects.get(id=request.session['id'])
+    user_liking = User.objects.get(id=request.session['user_id'])
     liked_post.user_likes.add(user_liking)
-    return redirect('/success')
+    return redirect('/forum')
 
 def delete_comment(request, id):
     destroyed = Comment.objects.get(id=id)
     destroyed.delete()
-    return redirect('/success')
+    return redirect('/forum')
 
 # -- User Profile -- #
 def user_profile(request, id):
