@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include "partial/head.html" %}
+    <title>Gaming News | Forum</title>
+  </head>
+  <body>
+    <h1>Edid Post</h1>
+    {% if messages %} {% for msg in messages %}
+    <h3>{{ msg }}</h3>
+    {% endfor %} {% endif %}
+    <form action="/edit-post" method="post">
+      {% csrf_token %}
+      <textarea name="post_post" id="" cols="30" rows="10">
+        {{ post.post }}
+      </textarea>
+      <input type="hidden" name="post_id" value="{{ post.id }}" />
+      <button>Edit Post</button>
+    </form>
+  </body>
+</html>

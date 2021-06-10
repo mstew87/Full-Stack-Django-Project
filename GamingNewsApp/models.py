@@ -46,10 +46,21 @@ class File(models.Model):
     file = models.FileField(upload_to="media/images")
 
 # Forum
+class PostManager(models.Manager):
+  def validate_post(self, post):
+    errors = {}
+    if len(post) < 2:
+      errors['length'] = 'Post must be at least 2 characters'
+    if len(post) > 280:
+      errors['length'] = 'Post can be max of 280 characters'
+    return errors
+
 class Forum_Post(models.Model):
     post = models.CharField(max_length=1000)
     poster = models.ForeignKey(User, related_name='user_messages', on_delete=models.CASCADE)
     user_likes = models.ManyToManyField(User, related_name='liked_posts')
+
+    objects = PostManager()
 
 class Comment(models.Model):
     comment = models.CharField(max_length=255)
