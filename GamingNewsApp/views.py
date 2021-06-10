@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-from .models import Comment, Forum_Post, User
+from .models import Comment, Forum_Post, User, File
+from django.http import HttpResponse
 import requests
 # from GamingNews/.env/ import APIKEY
 # news_api_url = f"https://newsapi.org/v2/top-headlines?country=us&apiKey={APIKEY}"
@@ -118,8 +119,15 @@ def add_like(request, id):
     return redirect('/forum')
 
 def delete_comment(request, id):
+    print (id)
     destroyed = Comment.objects.get(id=id)
     destroyed.delete()
+    return redirect('/forum')
+
+def delete_post(request, id):
+    print (id)
+    destroyed_post = Forum_Post.objects.get(id=id)
+    destroyed_post.delete()
     return redirect('/forum')
 
 # -- User Profile -- #
@@ -135,4 +143,10 @@ def edit(request, id):
     edit_user.email = request.POST['email']
     edit_user.password = request.POST['password']
     edit_user.save()
+    return redirect('/success')
+
+def add_img(request):
+    if request.method == "POST":
+        new_file = (File(file=request.FILES['image']))
+        new_file.save()
     return redirect('/success')

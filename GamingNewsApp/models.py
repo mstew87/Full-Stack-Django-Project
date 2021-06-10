@@ -17,7 +17,6 @@ class UserManager(models.Manager):
             errors['password'] = 'Password must be at least 8 characters'
         if form['password'] != form['confirm']:
             errors['password'] = 'Passwords do not match'
-        return errors
     
     def authenticate(self, username, password):
         users = self.filter(username=username)
@@ -39,8 +38,12 @@ class User(models.Model):
     username = models.CharField(max_length=45)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
+    image = models.ImageField(default='default.jpg', upload_to='images', null=True, blank=True)
 
     objects = UserManager()
+
+class File(models.Model):
+    file = models.FileField(upload_to="media/images")
 
 # Forum
 class Forum_Post(models.Model):
