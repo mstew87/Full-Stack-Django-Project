@@ -103,6 +103,14 @@ def forum(request):
     return render(request, 'forum.html', context)
 
 def post_mess(request):
+  if request.method == "POST":
+    post = request.POST['mess']
+    user = User.objects.get(id=request.session['user_id'])
+    errors = Forum_Post.objects.validate_post(post)
+    if len(errors) > 0:
+      for key, val in errors.items():
+        messages.error(request, val)
+      return redirect('/forum')
     Forum_Post.objects.create(post=request.POST['mess'], poster = User.objects.get(id=request.session['user_id']))
     return redirect('/forum')
 
@@ -123,6 +131,29 @@ def delete_comment(request, id):
     destroyed = Comment.objects.get(id=id)
     destroyed.delete()
     return redirect('/forum')
+
+def edit_post(request):
+    if request.method == "POST":
+        post_id = request.POST['post_id']
+        post = request.POST['post_post']
+        errors = Forum_Post.objects.validate_post(post)
+        if len(errors) > 0:
+            for key, val in errors.items():
+                messages.error(request, val)
+            return redirect(f"/edit-post/{ request.POST['post_id'] }")
+    post_to_edit = Forum_Post.objects.get(id=post_id)
+    post_to_edit.post = post
+    post_to_edit.save()
+    return redirect("/forum")
+
+def edit_post_template(request, post_id):
+  if 'user_id' not in request.session:
+    return HttpResponse("<h1>You must be logged in to edit a post!</h1>")
+  post = Forum_Post.objects.get(id=post_id)
+  context = {
+    "post": post
+  }
+  return render(request, 'edit_post.html', context)
 
 def delete_post(request, id):
     print (id)
