@@ -1,0 +1,19 @@
+<div class="card">
+  {% comment %} <form action="/add-image" method="POST" enctype="multipart/form-data">
+    <input type='file' id="imgInp" />
+    <img id="profile_picture" alt="your image" />
+  </form> {% endcomment %}
+  {% comment %} <form action="/add-image" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <img src="" alt="user-img" style="width: 100%"></img>
+    <input type="file" name="image">
+    <button>Upload profile image</button>
+  </form> {% endcomment %}
+  <h1>{{ user.username }}</h1>
+  <p class="title">{{ user.email }}</p>
+  <p></p>
+  <a href="#"><i class="fa fa-twitter"></i></a>
+  <a href="#"><i class="fa fa-linkedin"></i></a>
+  <a href="#"><i class="fa fa-facebook"></i></a>
+  <p><button>Contact</button></p>
+</div>

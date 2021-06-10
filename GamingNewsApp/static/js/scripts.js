@@ -12,6 +12,17 @@ var page = 2;
 var window_scroll = true;
 var search = "{{ search }}";
 
+// // User Profile Picture
+// var imgInp = document.querySelector("#imgInp");
+// var imgPreview = document.getElementById("profilePicture");
+// imgInp.onchange = (evt) => {
+//   console.log("gets here");
+//   const [file] = imgInp.files;
+//   if (file) {
+//     blah.src = URL.createObjectURL(file);
+//   }
+// };
+
 window.addEventListener("scroll", function (e) {
   // scroll check
   console.log("scroll check...");
