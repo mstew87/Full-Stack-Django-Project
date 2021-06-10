@@ -10,7 +10,10 @@
 - Application includes protected route (user must be in session to view)
 - Application features static content (CSS, images, JS)
 - Created data must be validated (events cannot be in the past, wall posts must include content, no duplicate data, etc)
-(x) Application is responsive
-(x) Application is publicly deployed
-(x) File Upload
 - Application features an API
+
+Not yet featured / In progress:
+ Application is responsive
+ Application is publicly deployed
+ File Upload
+
