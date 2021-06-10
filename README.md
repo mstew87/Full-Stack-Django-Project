@@ -13,7 +13,7 @@
 - Application features an API
 
 Not yet featured / In progress:
- Application is responsive
- Application is publicly deployed
- File Upload
+- Application is responsive
+- Application is publicly deployed
+- File Upload
 
