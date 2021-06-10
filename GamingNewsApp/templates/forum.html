@@ -29,7 +29,12 @@
           {% for post in forum_posts %}
           <div class='one_post'>
             <p class='post'>{{post.post}}</p>
-            <p class='poster'>By: <a href="/user_profile/{{post.poster.id}}">{{post.poster.username}}</a><a href="/edit-post/{{ post.id }}"> EDIT </a><a href="/delete_mess/{{post.id}}" id='delete_post'> Delete</a></p>
+            <p class='poster'>By: <a href="/user_profile/{{post.poster.id}}">{{post.poster.username}}</a>
+            <br>
+            {% if post.poster.id == request.session.user_id %}
+            <a href="/edit-post/{{ post.id }}"> EDIT </a><a href="/delete_mess/{{post.id}}" id='delete_post'> Delete</a></p>
+            {% endif %}
+            <br>
             <a href="/like/{{post.id}}">Like Post</a>
             <p>{{ post.user_likes.count }}</p>
             <form action="/add_comment/{{post.id}}" method=POST>
