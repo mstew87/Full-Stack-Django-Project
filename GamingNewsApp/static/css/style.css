@@ -24,6 +24,29 @@ body {
   /* border: 1px solid black; */
   /* background-color: aliceblue; */
 }
+
+#log-reg {
+  display: flex;
+  justify-content: center;
+}
+
+.register-form {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  width: 25%;
+  margin: 5%
+}
+
+.login-form {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  width: 25%;
+  height: 50%;
+  margin: 5%;
+}
+
 #posts {
   background-color: #000;
   padding-top: 5px;
