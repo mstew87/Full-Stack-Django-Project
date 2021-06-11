@@ -1,6 +1,6 @@
 # Full-Stack-Django-Project
 
-Deployed on Amazon AWS
+Deployed on Amazon AWS: 3.22.79.7
 
 - Log and Reg with validations
 - User can [create] object to database
