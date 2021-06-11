@@ -1,5 +1,7 @@
 # Full-Stack-Django-Project
 
+Deployed on Amazon AWS! (still working some bugs out but it's there!)
+
 - Log and Reg with validations
 - User can [create] object to database
 - User can [read] or view objects retrieved from database
@@ -14,6 +16,5 @@
 
 Not yet featured / In progress:
 - Application is responsive
-- Application is publicly deployed
 - File Upload
 
