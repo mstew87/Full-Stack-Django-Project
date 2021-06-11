@@ -168,11 +168,16 @@ def user_profile(request, id):
     }
     return render(request, 'profile.html', context)
 
-def edit(request, id):
-    edit_user = User.objects.get(id=id)
+def edit_profile_template(request):
+    context = {
+    'user': User.objects.get(id=request.session['user_id']) 
+    }
+    return render(request, 'edit_profile.html', context)
+
+def edit(request):
+    edit_user = User.objects.get(id=request.session['user_id'])
     edit_user.username = request.POST['username']
     edit_user.email = request.POST['email']
-    edit_user.password = request.POST['password']
     edit_user.save()
     return redirect('/success')
 
