@@ -1,4 +1,4 @@
-# Full-Stack-Django-Project
+# GamingNews
 
 Deployed on Amazon AWS: 3.22.79.7
 
